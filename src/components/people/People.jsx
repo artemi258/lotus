@@ -9,25 +9,35 @@ import "./people.css";
 
 export const People = () => {
   const [people, setPeople] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
+  const [firstRender, setFirstRender] = useState(false);
 
   const debouncedValue = useDebounce(value);
 
   useEffect(() => {
+    gettingPeople();
+    setFirstRender(true);
+  }, []);
+
+  useEffect(() => {
+    if (debouncedValue) {
+      setLoading(true);
+      handleSearch();
+    } else if (firstRender) {
+      console.log("first");
+      gettingPeople();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]);
+
+  const gettingPeople = () => {
+    setLoading(true);
     getPeople().then((res) => {
       setPeople(res.results);
       setLoading(false);
     });
-  }, []);
-
-  useEffect(() => {
-    console.log(debouncedValue);
-    if (debouncedValue) {
-      setLoading(true);
-      handleSearch();
-    }
-  }, [debouncedValue]);
+  };
 
   const handleSearch = () => {
     searchPeople(debouncedValue).then((res) => {
