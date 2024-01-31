@@ -30,3 +30,7 @@
   height: 64px;
   margin-top: 20px;
 }
+
+.error {
+  color: brown;
+}

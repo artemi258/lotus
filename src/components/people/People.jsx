@@ -11,6 +11,7 @@ export const People = () => {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
   const [firstRender, setFirstRender] = useState(false);
 
   const debouncedValue = useDebounce(value);
@@ -32,17 +33,21 @@ export const People = () => {
 
   const gettingPeople = () => {
     setLoading(true);
-    getPeople().then((res) => {
-      setPeople(res.results);
-      setLoading(false);
-    });
+    getPeople()
+      .then((res) => {
+        setPeople(res.results);
+        setLoading(false);
+      })
+      .catch(() => setError(true));
   };
 
   const handleSearch = () => {
-    searchPeople(debouncedValue).then((res) => {
-      setPeople(res.results);
-      setLoading(false);
-    });
+    searchPeople(debouncedValue)
+      .then((res) => {
+        setPeople(res.results);
+        setLoading(false);
+      })
+      .catch(() => setError(true));
   };
 
   return (
@@ -58,21 +63,25 @@ export const People = () => {
         <img src={loadingGIF} alt="загрузка" className="loading" />
       ) : (
         <ul className="wrapper">
-          {people.map(
-            ({ name, birth_year, gender, height, mass, skin_color }) => (
-              <PeopleItem
-                key={name}
-                name={name}
-                birth_year={birth_year}
-                gender={gender}
-                height={height}
-                mass={mass}
-                skin_color={skin_color}
-              />
-            )
-          )}
+          {!people.length
+            ? "пусто"
+            : people.map(
+                ({ name, birth_year, gender, height, mass, skin_color }) => (
+                  <PeopleItem
+                    key={name}
+                    name={name}
+                    birth_year={birth_year}
+                    gender={gender}
+                    height={height}
+                    mass={mass}
+                    skin_color={skin_color}
+                  />
+                )
+              )}
         </ul>
       )}
+
+      {error && <div className="error">Произошла ошибка</div>}
     </div>
   );
 };
