@@ -25,7 +25,6 @@ export const People = () => {
       setLoading(true);
       handleSearch();
     } else if (firstRender) {
-      console.log("first");
       gettingPeople();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
