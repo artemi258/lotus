@@ -1,0 +1,19 @@
+.peopleItem {
+  grid-template: repeat(auto, 2) / 100px;
+  border: 1px solid blue;
+  padding: 5px;
+}
+
+.wrap {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.characteristic {
+  color: blue;
+}
+
+.characteristic span {
+  color: rgb(56, 124, 146);
+}

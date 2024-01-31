@@ -1,0 +1,32 @@
+.people {
+  padding: 100px 0;
+}
+
+.input {
+  height: 50px;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid blue;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  &:focus {
+    outline: none;
+    border-color: lightskyblue;
+    box-shadow: 1px 1px 10px 1px lightskyblue;
+  }
+}
+
+.wrapper {
+  display: grid;
+  grid-template: 250px / repeat(auto-fit, 200px);
+  grid-auto-rows: 250px;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.loading {
+  width: 64px;
+  height: 64px;
+  margin-top: 20px;
+}
